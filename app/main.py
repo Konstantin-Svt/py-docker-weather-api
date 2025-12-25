@@ -19,6 +19,9 @@ def get_weather(city_name: str, weather_api_url: str, api_key: str) -> None:
             "q": city_name,
         },
     ).json()
+    if error := data.get("error"):
+        raise Exception(error)
+
     result = (
         f"{data.get('location').get('name')}/"
         f"{data.get('location').get('country')} "

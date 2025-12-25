@@ -4,15 +4,16 @@ import requests
 
 
 CITY_NAME = "Paris"
+WEATHER_API_URL = "http://api.weatherapi.com/v1/current.json"
 API_KEY = os.environ.get("API_KEY")
 
 
-def get_weather(city_name: str, api_key: str) -> None:
+def get_weather(city_name: str, weather_api_url: str, api_key: str) -> None:
     if not api_key:
         raise ValueError("API key not provided")
 
     data = requests.get(
-        "http://api.weatherapi.com/v1/current.json",
+        url=weather_api_url,
         params={
             "key": api_key,
             "q": city_name,
@@ -29,4 +30,6 @@ def get_weather(city_name: str, api_key: str) -> None:
 
 
 if __name__ == "__main__":
-    get_weather(CITY_NAME, API_KEY)
+    get_weather(
+        city_name=CITY_NAME, weather_api_url=WEATHER_API_URL, api_key=API_KEY
+    )
